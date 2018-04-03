@@ -1,5 +1,6 @@
 package edu.asu.workout;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +21,13 @@ public class WorkoutDetailFragment extends Fragment {
                              Bundle savedInstanceState){
         if(savedInstanceState != null){
             workoutId = savedInstanceState.getLong("workoutId");
+        }else{
+            FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+            StopWatchFragment stopWatchFragment = new StopWatchFragment();
+            ft.replace(R.id.stopwatch_container, stopWatchFragment);
+            ft.addToBackStack(null);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.commit();
         }
         return inflater.inflate(R.layout.fragment_workout_detail, container, false);
     }
